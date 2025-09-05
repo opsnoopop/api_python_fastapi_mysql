@@ -52,7 +52,7 @@ async def on_shutdown():
 
 @app.get("/")
 async def root() -> Dict[str, Any]:
-    return {"message": "Hello World from Python FastAPI MySQL (async)"}
+    return {"message": "Hello World from Python Python (FastAPI + MySQL, async)"}
 
 @app.post("/users", status_code=201)
 async def create_user(body: CreateUserBody):
