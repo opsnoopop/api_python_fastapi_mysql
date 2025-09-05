@@ -1,0 +1,61 @@
+services:
+  python:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: fastapi-mysql:py312
+    container_name: container_python
+    restart: always
+    ports:
+      - "80:3000"
+    env_file:
+      - .env
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      network_python:
+        ipv4_address: 172.16.0.11
+
+  database:
+    image: mysql:8.4.5
+    container_name: container_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: testuser
+      MYSQL_PASSWORD: testpass
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql:/var/lib/mysql
+      - ./mysql_initdb:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u$$MYSQL_USER -p$$MYSQL_PASSWORD --silent"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+    networks:
+      network_python:
+        ipv4_address: 172.16.0.12
+
+  adminer:
+    image: adminer:5-standalone
+    container_name: container_adminer
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - database
+    networks:
+      network_python:
+        ipv4_address: 172.16.0.13
+
+networks:
+  network_python:
+    name: global_python
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.0.0/24
