@@ -1,0 +1,38 @@
+MySQL
+sysbench 1.0.20 (using system LuaJIT 2.1.0-beta3)
+
+Running the test with following options:
+Number of threads: 2
+Initializing random number generator from current time
+
+
+Initializing worker threads...
+
+Threads started!
+
+SQL statistics:
+    queries performed:
+        read:                            29050
+        write:                           8300
+        other:                           4150
+        total:                           41500
+    transactions:                        2075   (206.84 per sec.)
+    queries:                             41500  (4136.89 per sec.)
+    ignored errors:                      0      (0.00 per sec.)
+    reconnects:                          0      (0.00 per sec.)
+
+General statistics:
+    total time:                          10.0299s
+    total number of events:              2075
+
+Latency (ms):
+         min:                                    5.16
+         avg:                                    9.65
+         max:                                  108.93
+         95th percentile:                       18.28
+         sum:                                20015.54
+
+Threads fairness:
+    events (avg/stddev):           1037.5000/7.50
+    execution time (avg/stddev):   10.0078/0.01
+

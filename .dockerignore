@@ -9,4 +9,6 @@ k6/
 node_modules/
 mysql/
 mysql_initdb/
-test*.sh
+sysbench/
+wrk/
+*.sh
